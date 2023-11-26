@@ -10,7 +10,9 @@ def create_board():
                 row_counter += 1
                 continue
             array_of_board[column][row] = "|"
+
             row_counter += 1
+
 
 def create_figures():
     placement_counter = 0
@@ -33,3 +35,10 @@ def create_figures():
             reverse = False
         else:
             reverse = True
+
+
+def print_board():
+    for column in array_of_board:
+        for row in column:
+            print(row, end=" ")
+        print("\n", end="")
