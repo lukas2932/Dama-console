@@ -2,8 +2,6 @@ import board
 import random
 from board import *
 
-from colorama import Fore
-
 def game():
     is_playing = True
     board.create_helping_board()
