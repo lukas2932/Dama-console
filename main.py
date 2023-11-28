@@ -2,6 +2,7 @@ import board
 import random
 from board import *
 
+from colorama import Fore
 
 def game():
     is_playing = True
@@ -14,7 +15,7 @@ def game():
         first_player_name = str(input("First player name: "))
         second_player_name = str(input("Second player name: "))
 
-        who_begins_num = random.randrange(1, 2)
+        who_begins_num = random.randint(1, 2)
         print(end = "\n")
 
         if who_begins_num == 1:
