@@ -150,25 +150,24 @@ def move_piece(self, name):
                 if not possible_moves:
                     print(f"There can not be done any moves to {moving_piece}")
                 else:
-                    print(f"Possible moves in {moving_piece} are: {possible_moves}")
+                    print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
                     is_choosing_move = True
                     while is_choosing_move:
-                        final_move = input("Move: ")
+                        final_move = int(input("Move: "))
                         for num in possible_moves:
-                            if final_move in num:
+                            if final_move == num:
                                 array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
-                                final_column = 0
-                                final_row = 0
                                 for column in array_of_board_helping:
                                     for row in column:
-                                        if final_move == str(row):
+                                        if final_move == row:
                                             final_column = array_of_board_helping.index(column)
                                             final_row = column.index(row)
+                                            array_of_board[final_column][final_row] = "X"
+                                            array_of_X_pieces.clear()
+                                            possible_moves.clear()
+                                            is_choosing_move = False
+                                            is_choosing = False
 
-                                array_of_board[final_column][final_row] = "X"
-                                array_of_X_pieces.clear()
-                                is_choosing_move = False
-                                is_choosing = False
         else:
             if array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O":
                 possible_moves = []
@@ -209,23 +208,20 @@ def move_piece(self, name):
                 if not possible_moves:
                     print(f"There can not be done any moves to {moving_piece}")
                 else:
-                    print(f"Possible moves in {moving_piece} are: {possible_moves}")
+                    print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
                     is_choosing_move = True
                     while is_choosing_move:
-                        print(possible_moves)
                         final_move = int(input("Move: "))
                         for num in possible_moves:
-                            if final_move in num:
+                            if final_move == num:
                                 array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
-                                final_column = 0
-                                final_row = 0
                                 for column in array_of_board_helping:
                                     for row in column:
-                                        if final_move == str(row):
+                                        if final_move == row:
                                             final_column = array_of_board_helping.index(column)
                                             final_row = column.index(row)
-
-                                array_of_board[final_column][final_row] = "O"
-                                array_of_O_pieces.clear()
-                                is_choosing_move = False
-                                is_choosing = False
+                                            array_of_board[final_column][final_row] = "O"
+                                            array_of_O_pieces.clear()
+                                            possible_moves.clear()
+                                            is_choosing_move = False
+                                            is_choosing = False
