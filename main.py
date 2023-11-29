@@ -25,18 +25,23 @@ def game():
             playing_variable = True
             gameplay = True
             while gameplay:
-                board.print_board()
-                board.print_helping_board()
-                move_piece(playing_variable)
                 if first_player_total_pieces == 0 or second_player_total_pieces == 0:
                     gameplay = False
                 if playing_variable:
-                    print(f"{second_player_name} is playing.")
+                    print("------------------------------------------")
+                    print(f"{first_player_name}(X) is playing.")
                     print(end= "\n")
+                    board.print_board()
+                    board.print_helping_board()
+                    move_piece(playing_variable, second_player_name)
                     playing_variable = False
                 else:
-                    print(f"{first_player_name} is playing.")
+                    print("------------------------------------------")
+                    print(f"{second_player_name}(O) is playing.")
                     print(end= "\n")
+                    board.print_board()
+                    board.print_helping_board()
+                    move_piece(playing_variable, first_player_name)
                     playing_variable = True
 
         elif who_begins_num == 2:
@@ -48,19 +53,24 @@ def game():
             playing_variable = False
             gameplay = True
             while gameplay:
-                board.print_board()
-                board.print_helping_board()
-                move_piece(playing_variable)
                 if first_player_total_pieces == 0 or second_player_total_pieces == 0:
                     gameplay = False
 
                 if playing_variable:
-                    print(f"{second_player_name} is playing.")
+                    print("------------------------------------------")
+                    print(f"{first_player_name}(X) is playing.")
                     print(end= "\n")
+                    board.print_board()
+                    board.print_helping_board()
+                    move_piece(playing_variable, second_player_name)
                     playing_variable = False
                 else:
-                    print(f"{first_player_name} is playing.")
+                    print("------------------------------------------")
+                    print(f"{second_player_name}(O) is playing.")
                     print(end= "\n")
+                    board.print_board()
+                    board.print_helping_board()
+                    move_piece(playing_variable, first_player_name)
                     playing_variable = True
 
         print(end="\n")

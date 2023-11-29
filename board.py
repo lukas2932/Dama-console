@@ -99,7 +99,7 @@ def print_helping_board():
     print(end="\n")
 
 
-def move_piece(self):
+def move_piece(self, name):
     is_choosing = True
     while is_choosing:
         moving_piece = int(input("Select a piece you want to move: "))
@@ -121,25 +121,13 @@ def move_piece(self):
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
 
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
-
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
-
                     elif row_index_of_moving_piece == 1:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
 
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
-
                     elif row_index_of_moving_piece == 15:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
-
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
 
                 elif column_index_of_moving_piece == 0:
                     if 1 < row_index_of_moving_piece < 15:
@@ -158,21 +146,7 @@ def move_piece(self):
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
 
                 elif column_index_of_moving_piece == 7:
-                    if 1 < row_index_of_moving_piece < 15:
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
-
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
-
-                    elif row_index_of_moving_piece == 1:
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
-
-                    elif row_index_of_moving_piece == 15:
-                        if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
-
+                    print(f"Player {name} has gained a Queen.")
                 if not possible_moves:
                     print(f"There can not be done any moves to {moving_piece}")
                 else:
@@ -199,12 +173,6 @@ def move_piece(self):
                 possible_moves = ""
                 if 0 < column_index_of_moving_piece < 7:
                     if 1 < row_index_of_moving_piece < 15:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
-
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
-
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
 
@@ -212,34 +180,12 @@ def move_piece(self):
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
 
                     elif row_index_of_moving_piece == 1:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
-
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
 
                     elif row_index_of_moving_piece == 15:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
-
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
-
-                elif column_index_of_moving_piece == 0:
-                    if 1 < row_index_of_moving_piece < 15:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
-
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
-
-                    elif row_index_of_moving_piece == 1:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
-
-                    elif row_index_of_moving_piece == 15:
-                        if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
 
                 elif column_index_of_moving_piece == 7:
                     if 1 < row_index_of_moving_piece < 15:
@@ -257,6 +203,8 @@ def move_piece(self):
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
                             possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
 
+                elif column_index_of_moving_piece == 0:
+                    print(f"Player {name} has gained a Queen.")
                 if not possible_moves:
                     print(f"There can not be done any moves to {moving_piece}")
                 else:
