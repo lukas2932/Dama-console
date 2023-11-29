@@ -112,38 +112,38 @@ def move_piece(self, name):
                 row_index_of_moving_piece = tempo_index.index(moving_piece)
         if self:
             if array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "X":
-                possible_moves = ""
+                possible_moves = []
                 if 0 < column_index_of_moving_piece < 7:
                     if 1 < row_index_of_moving_piece < 15:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2])
 
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2])
 
                     elif row_index_of_moving_piece == 1:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2])
 
                     elif row_index_of_moving_piece == 15:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2])
 
                 elif column_index_of_moving_piece == 0:
                     if 1 < row_index_of_moving_piece < 15:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2])
 
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2])
 
                     elif row_index_of_moving_piece == 1:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece + 2])
 
                     elif row_index_of_moving_piece == 15:
                         if array_of_board[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece + 1][row_index_of_moving_piece - 2])
 
                 elif column_index_of_moving_piece == 7:
                     print(f"Player {name} has gained a Queen.")
@@ -154,54 +154,55 @@ def move_piece(self, name):
                     is_choosing_move = True
                     while is_choosing_move:
                         final_move = input("Move: ")
-                        if final_move in possible_moves:
-                            array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
-                            final_column = 0
-                            final_row = 0
-                            for column in array_of_board_helping:
-                                for row in column:
-                                    if final_move == str(row):
-                                        final_column = array_of_board_helping.index(column)
-                                        final_row = column.index(row)
+                        for num in possible_moves:
+                            if final_move in num:
+                                array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
+                                final_column = 0
+                                final_row = 0
+                                for column in array_of_board_helping:
+                                    for row in column:
+                                        if final_move == str(row):
+                                            final_column = array_of_board_helping.index(column)
+                                            final_row = column.index(row)
 
-                            array_of_board[final_column][final_row] = "X"
-                            array_of_X_pieces.clear()
-                            is_choosing_move = False
-                            is_choosing = False
+                                array_of_board[final_column][final_row] = "X"
+                                array_of_X_pieces.clear()
+                                is_choosing_move = False
+                                is_choosing = False
         else:
             if array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O":
-                possible_moves = ""
+                possible_moves = []
                 if 0 < column_index_of_moving_piece < 7:
                     if 1 < row_index_of_moving_piece < 15:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2])
 
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2])
 
                     elif row_index_of_moving_piece == 1:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2])
 
                     elif row_index_of_moving_piece == 15:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2])
 
                 elif column_index_of_moving_piece == 7:
                     if 1 < row_index_of_moving_piece < 15:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2])
 
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2])
 
                     elif row_index_of_moving_piece == 1:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece + 2])
 
                     elif row_index_of_moving_piece == 15:
                         if array_of_board[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2] == " ":
-                            possible_moves += f"{array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2]} "
+                            possible_moves.append(array_of_board_helping[column_index_of_moving_piece - 1][row_index_of_moving_piece - 2])
 
                 elif column_index_of_moving_piece == 0:
                     print(f"Player {name} has gained a Queen.")
@@ -211,18 +212,20 @@ def move_piece(self, name):
                     print(f"Possible moves in {moving_piece} are: {possible_moves}")
                     is_choosing_move = True
                     while is_choosing_move:
-                        final_move = input("Move: ")
-                        if final_move in possible_moves:
-                            array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
-                            final_column = 0
-                            final_row = 0
-                            for column in array_of_board_helping:
-                                for row in column:
-                                    if final_move == str(row):
-                                        final_column = array_of_board_helping.index(column)
-                                        final_row = column.index(row)
+                        print(possible_moves)
+                        final_move = int(input("Move: "))
+                        for num in possible_moves:
+                            if final_move in num:
+                                array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
+                                final_column = 0
+                                final_row = 0
+                                for column in array_of_board_helping:
+                                    for row in column:
+                                        if final_move == str(row):
+                                            final_column = array_of_board_helping.index(column)
+                                            final_row = column.index(row)
 
-                            array_of_board[final_column][final_row] = "O"
-                            array_of_O_pieces.clear()
-                            is_choosing_move = False
-                            is_choosing = False
+                                array_of_board[final_column][final_row] = "O"
+                                array_of_O_pieces.clear()
+                                is_choosing_move = False
+                                is_choosing = False
