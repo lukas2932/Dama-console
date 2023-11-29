@@ -1,6 +1,7 @@
 import board
 import random
 from board import *
+from values import first_player_total_pieces, second_player_total_pieces
 
 def game():
     is_playing = True
