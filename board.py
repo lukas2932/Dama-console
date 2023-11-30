@@ -1,3 +1,4 @@
+import methods
 from colorama import Fore
 from values import (array_of_board, array_of_board_helping,
                     array_of_O_pieces, array_of_X_pieces)
@@ -54,6 +55,9 @@ def create_figures():
         else:
             reverse = True
 
+    array_of_board[6][3] = "X"
+    array_of_board[1][1] = "O"
+
 
 def print_board():
     for column in array_of_board:
@@ -106,7 +110,7 @@ def move_piece(self, name):
         moving_piece = int(input("Select a piece you want to move: "))
         column_index_of_moving_piece = 0
         row_index_of_moving_piece = 0
-        for index in enumerate(array_of_board_helping):
+        for index, value in enumerate(array_of_board_helping):
             if moving_piece in array_of_board_helping[index]:
                 column_index_of_moving_piece = index
                 tempo_index = array_of_board_helping[index]
@@ -170,5 +174,6 @@ def move_piece(self, name):
                                             array_of_board[final_column][final_row] = "O"
                                             array_of_O_pieces.clear()
                                         possible_moves.clear()
+                                        methods.has_queen(self, final_column, name)
                                         is_choosing_move = False
                                         is_choosing = False

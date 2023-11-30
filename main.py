@@ -11,8 +11,8 @@ def game():
         board.create_board()
         board.create_figures()
 
-        first_player_name = str(input("First player name: "))
-        second_player_name = str(input("Second player name: "))
+        first_player_name = str(input("First player name: ")).strip()
+        second_player_name = str(input("Second player name: ")).strip()
 
         who_begins_num = random.randint(1, 2)
         print(end = "\n")
