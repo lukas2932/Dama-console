@@ -6,7 +6,7 @@ from values import first_player_total_pieces, second_player_total_pieces
 def game():
     is_playing = True
     board.create_helping_board()
-
+    #Zlepseni kodu, rozdeleni metody
     while is_playing:
         board.create_board()
         board.create_figures()

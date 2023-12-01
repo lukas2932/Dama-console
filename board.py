@@ -1,7 +1,6 @@
 import methods
 from colorama import Fore
-from values import (array_of_board, array_of_board_helping,
-                    array_of_O_pieces, array_of_X_pieces)
+from values import *
 
 
 def create_board():
@@ -62,9 +61,14 @@ def create_figures():
 def print_board():
     for column in array_of_board:
         for row in column:
+            index_of_column = array_of_board.index(column)
+            index_of_row = column.index(row)
+            if (O_queens[index_of_column][index_of_row] == 1 or
+                    X_queens[index_of_column][index_of_row] == 1):
+                print(Fore.WHITE + row + Fore.RESET, end=" ")
+                continue
             print(row, end=" ")
         print("\n", end="")
-
     print(end="\n")
 
 
@@ -82,34 +86,32 @@ def print_helping_board():
             elif row == " ":
                 counter += 1
     print(Fore.WHITE, end="")
+
     for column in array_of_board_helping:
         for row in column:
+            index_of_column = array_of_board_helping.index(column)
+            index_of_row = column.index(row)
             if row in array_of_X_pieces:
-                if row < 10:
-                    print(Fore.RED + f" {row}" + Fore.WHITE, end=" ")
-                else:
-                    print(Fore.RED + f"{row}" + Fore.WHITE, end=" ")
+                methods.print_pieces(index_of_column, index_of_row, row, "X")
             elif row in array_of_O_pieces:
-                if row < 10:
-                    print(Fore.GREEN + f" {row}" + Fore.WHITE, end=" ")
-                else:
-                    print(Fore.GREEN + f"{row}" + Fore.WHITE, end=" ")
+                methods.print_pieces(index_of_column, index_of_row, row, "O")
             else:
                 if not row == "|" and row < 10:
-                    print(f" {row}", end=" ")
+                    print(Fore.WHITE + f" {row}" + Fore.WHITE, end=" ")
                 else:
-                    print(row, end=" ")
+                    print(Fore.WHITE + f"{row}" + Fore.WHITE, end=" ")
         print("\n", end="")
     print(Fore.RESET, end="")
     print(end="\n")
 
-
+#Rozdeleni metody move_piece
 def move_piece(self, name):
     is_choosing = True
     while is_choosing:
         moving_piece = int(input("Select a piece you want to move: "))
         column_index_of_moving_piece = 0
         row_index_of_moving_piece = 0
+        queen_playing = False
         for index, value in enumerate(array_of_board_helping):
             if moving_piece in array_of_board_helping[index]:
                 column_index_of_moving_piece = index
@@ -125,32 +127,37 @@ def move_piece(self, name):
         if ((array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "X" and self)
                 or (array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O" and not self)):
             possible_moves = []
-            if 0 <= column_index_of_moving_piece < 7:
-                if 1 < row_index_of_moving_piece < 15:
-                    if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
-                        possible_moves.append(
-                            array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
-                        )
+            if (X_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1 or
+                    O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
+                possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
+                queen_playing = True
+            else:
+                if 0 <= column_index_of_moving_piece < 7:
+                    if 1 < row_index_of_moving_piece < 15:
+                        if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
+                            possible_moves.append(
+                                array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
+                            )
 
-                    if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
-                        possible_moves.append(
-                            array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
-                        )
+                        if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
+                            possible_moves.append(
+                                array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
+                            )
 
-                elif row_index_of_moving_piece == 1:
-                    if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
-                        possible_moves.append(
-                            array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
-                        )
+                    elif row_index_of_moving_piece == 1:
+                        if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
+                            possible_moves.append(
+                                array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
+                            )
 
-                elif row_index_of_moving_piece == 15:
-                    if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
-                        possible_moves.append(
-                            array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
-                        )
+                    elif row_index_of_moving_piece == 15:
+                        if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
+                            possible_moves.append(
+                                array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
+                            )
 
-            elif column_index_of_moving_piece == 7:
-                print(f"Player {name} has gained a Queen.")
+                elif column_index_of_moving_piece == 7:
+                    print(f"Player {name} has gained a Queen.")
 
             if not possible_moves:
                 print(f"There can not be done any moves to {moving_piece}")
@@ -168,12 +175,18 @@ def move_piece(self, name):
                                         final_column = array_of_board_helping.index(column)
                                         final_row = column.index(row)
                                         if indicator_of_moving_element == "X":
+                                            if queen_playing:
+                                                X_queens[column_index_of_moving_piece][row_index_of_moving_piece] = "|"
+                                                X_queens[final_column][final_row] = 1
                                             array_of_board[final_column][final_row] = "X"
                                             array_of_X_pieces.clear()
                                         elif indicator_of_moving_element == "O":
+                                            if queen_playing:
+                                                O_queens[column_index_of_moving_piece][row_index_of_moving_piece] = "|"
+                                                O_queens[final_column][final_row] = 1
                                             array_of_board[final_column][final_row] = "O"
                                             array_of_O_pieces.clear()
                                         possible_moves.clear()
-                                        methods.has_queen(self, final_column, name)
+                                        methods.Queen(final_column, final_row).has_queen(self, name)
                                         is_choosing_move = False
                                         is_choosing = False
