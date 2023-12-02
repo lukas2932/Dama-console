@@ -63,11 +63,18 @@ def print_board():
         for row in column:
             index_of_column = array_of_board.index(column)
             index_of_row = column.index(row)
-            if (O_queens[index_of_column][index_of_row] == 1 or
-                    X_queens[index_of_column][index_of_row] == 1):
-                print(Fore.WHITE + row + Fore.RESET, end=" ")
-                continue
-            print(row, end=" ")
+            if row == "X":
+                if X_queens[index_of_column][index_of_row] == 1:
+                    print(Fore.MAGENTA + row + Fore.RESET, end=" ")
+                else:
+                    print(Fore.RED + row + Fore.RESET, end=" ")
+            elif row == "O":
+                if O_queens[index_of_column][index_of_row] == 1:
+                    print(Fore.BLUE + row + Fore.RESET, end=" ")
+                else:
+                    print(Fore.GREEN + row + Fore.RESET, end=" ")
+            else:
+                print(row, end=" ")
         print("\n", end="")
     print(end="\n")
 
