@@ -92,9 +92,9 @@ def print_helping_board():
             index_of_column = array_of_board_helping.index(column)
             index_of_row = column.index(row)
             if row in array_of_X_pieces:
-                methods.print_pieces(index_of_column, index_of_row, row, "X")
+                methods.print_helping_nums(index_of_column, index_of_row, row, "X")
             elif row in array_of_O_pieces:
-                methods.print_pieces(index_of_column, index_of_row, row, "O")
+                methods.print_helping_nums(index_of_column, index_of_row, row, "O")
             else:
                 if not row == "|" and row < 10:
                     print(Fore.WHITE + f" {row}" + Fore.WHITE, end=" ")
@@ -118,11 +118,11 @@ def move_piece(self, name):
                 tempo_index = array_of_board_helping[index]
                 row_index_of_moving_piece = tempo_index.index(moving_piece)
         if self:
-            moving_indicator = column_index_of_moving_piece + 1
             indicator_of_moving_element = "X"
+            column_possible_move = 1
         else:
-            moving_indicator = column_index_of_moving_piece - 1
             indicator_of_moving_element = "O"
+            column_possible_move = -1
 
         if ((array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "X" and self)
                 or (array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O" and not self)):
@@ -132,32 +132,19 @@ def move_piece(self, name):
                 possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
                 queen_playing = True
             else:
-                if 0 <= column_index_of_moving_piece < 7:
-                    if 1 < row_index_of_moving_piece < 15:
-                        if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
+                for num in range(4):
+                    if num % 2 == 0:
+                        moving_row_indicator = 2
+                    else:
+                        moving_row_indicator = -2
+                    try:
+                        if (array_of_board[column_index_of_moving_piece + column_possible_move][row_index_of_moving_piece + moving_row_indicator] == " " and
+                            array_of_board_helping[column_index_of_moving_piece + column_possible_move][row_index_of_moving_piece + moving_row_indicator] not in possible_moves):
                             possible_moves.append(
-                                array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
-                            )
-
-                        if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
-                            possible_moves.append(
-                                array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
-                            )
-
-                    elif row_index_of_moving_piece == 1:
-                        if array_of_board[moving_indicator][row_index_of_moving_piece + 2] == " ":
-                            possible_moves.append(
-                                array_of_board_helping[moving_indicator][row_index_of_moving_piece + 2]
-                            )
-
-                    elif row_index_of_moving_piece == 15:
-                        if array_of_board[moving_indicator][row_index_of_moving_piece - 2] == " ":
-                            possible_moves.append(
-                                array_of_board_helping[moving_indicator][row_index_of_moving_piece - 2]
-                            )
-
-                elif column_index_of_moving_piece == 7:
-                    print(f"Player {name} has gained a Queen.")
+                                array_of_board_helping[column_index_of_moving_piece + column_possible_move][
+                                    row_index_of_moving_piece + moving_row_indicator])
+                    except IndexError:
+                        pass
 
             if not possible_moves:
                 print(f"There can not be done any moves to {moving_piece}")
