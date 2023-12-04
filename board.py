@@ -215,6 +215,7 @@ def move_piece(self, name):
                 for num in possible_capture_moves:
                     if num in possible_moves:
                         possible_moves.remove(num)
+            #Pridat - Pokud hrac vyradi figurku a muze vyradit jeste jakoukoliv dalsi, tak tak musi ucinit
             if not possible_moves and not possible_capture_moves:
                 print(f"There can not be done any moves to {moving_piece}")
             else:
