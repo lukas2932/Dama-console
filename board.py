@@ -2,7 +2,6 @@ import methods
 from colorama import Fore
 from values import *
 
-
 def create_board():
     for column in range(8):
         row_counter = 0
@@ -34,19 +33,25 @@ def create_helping_board():
 
 def create_figures():
     placement_counter = 0
+    x_pieces_counter = 0
+    o_pieces_counter = 0
     reverse = False
     for column in range(3):
         for row in range(16):
             if reverse:
                 if placement_counter % 4 == 3:
                     array_of_board[column][row] = "X"
+                    x_pieces_counter += 1
                 if placement_counter % 4 == 1:
                     array_of_board[column - column - column - 1][row] = "O"
+                    o_pieces_counter += 1
             else:
                 if placement_counter % 4 == 1:
                     array_of_board[column][row] = "X"
+                    x_pieces_counter += 1
                 if placement_counter % 4 == 3:
                     array_of_board[column - column - column - 1][row] = "O"
+                    o_pieces_counter += 1
 
             placement_counter += 1
         if reverse:
@@ -54,11 +59,17 @@ def create_figures():
         else:
             reverse = True
 
-    array_of_board[6][3] = "X"
-    array_of_board[1][1] = "O"
+    array_of_board[1][3] = "X"
+    array_of_board[2][5] = "O"
 
+    array_of_board[3][3] = "X"
+    array_of_board[4][5] = "O"
+
+    return x_pieces_counter, o_pieces_counter
 
 def print_board():
+    x_pieces_counter = 0
+    o_pieces_counter = 0
     for column in array_of_board:
         for row in column:
             index_of_column = array_of_board.index(column)
@@ -66,30 +77,40 @@ def print_board():
             if row == "X":
                 if X_queens[index_of_column][index_of_row] == 1:
                     print(Fore.MAGENTA + row + Fore.RESET, end=" ")
+                    x_pieces_counter += 1
                 else:
                     print(Fore.RED + row + Fore.RESET, end=" ")
+                    x_pieces_counter += 1
             elif row == "O":
                 if O_queens[index_of_column][index_of_row] == 1:
                     print(Fore.BLUE + row + Fore.RESET, end=" ")
+                    o_pieces_counter += 1
                 else:
                     print(Fore.GREEN + row + Fore.RESET, end=" ")
+                    o_pieces_counter += 1
             else:
                 print(row, end=" ")
         print("\n", end="")
     print(end="\n")
 
+    return x_pieces_counter, o_pieces_counter
+
 
 def print_helping_board():
     copy_of_array_of_board = array_of_board.copy()
     counter = 1
+    x_pieces_counter = 0
+    o_pieces_counter = 0
     for column in copy_of_array_of_board:
         for row in column:
             if row == "X":
                 array_of_X_pieces.append(counter)
                 counter += 1
+                x_pieces_counter += 1
             elif row == "O":
                 array_of_O_pieces.append(counter)
                 counter += 1
+                o_pieces_counter += 1
             elif row == " ":
                 counter += 1
     print(Fore.WHITE, end="")
@@ -111,7 +132,10 @@ def print_helping_board():
     print(Fore.RESET, end="")
     print(end="\n")
 
-#Rozdeleni metody move_piece
+    return x_pieces_counter, o_pieces_counter
+
+
+# Rozdeleni metody move_piece
 def move_piece(self, name):
     is_choosing = True
     while is_choosing:
@@ -126,41 +150,88 @@ def move_piece(self, name):
                 row_index_of_moving_piece = tempo_index.index(moving_piece)
         if self:
             indicator_of_moving_element = "X"
+            enemy_piece = "O"
             column_possible_move = 1
         else:
             indicator_of_moving_element = "O"
+            enemy_piece = "X"
             column_possible_move = -1
 
         if ((array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "X" and self)
                 or (array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O" and not self)):
             possible_moves = []
+            possible_capture_moves = []
+            column_of_captured_piece = 0
+            row_of_captured_piece = 0
+            captured_num_in_helping_board = 0
             if (X_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1 or
                     O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
                 possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
                 queen_playing = True
+                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_capture(enemy_piece)
+                if type(return_array[0]) == list:
+                    for item in return_array[0]:
+                        possible_capture_moves.append(item)
+                else:
+                    possible_capture_moves = return_array[0]
+                column_of_captured_piece = return_array[1]
+                row_of_captured_piece = return_array[2]
+                captured_num_in_helping_board = return_array[3]
+
             else:
                 for num in range(4):
                     if num % 2 == 0:
                         moving_row_indicator = 2
+                        moving_capture_row_indicator = 4
                     else:
                         moving_row_indicator = -2
+                        moving_capture_row_indicator = -4
                     try:
-                        if (array_of_board[column_index_of_moving_piece + column_possible_move][row_index_of_moving_piece + moving_row_indicator] == " " and
-                            array_of_board_helping[column_index_of_moving_piece + column_possible_move][row_index_of_moving_piece + moving_row_indicator] not in possible_moves):
+                        if (array_of_board[column_index_of_moving_piece + column_possible_move][
+                            row_index_of_moving_piece + moving_row_indicator] == " " and
+                                array_of_board_helping[column_index_of_moving_piece + column_possible_move][
+                                    row_index_of_moving_piece + moving_row_indicator] not in possible_moves):
                             possible_moves.append(
                                 array_of_board_helping[column_index_of_moving_piece + column_possible_move][
                                     row_index_of_moving_piece + moving_row_indicator])
+
+                        if (array_of_board[column_index_of_moving_piece + column_possible_move * 2][
+                            row_index_of_moving_piece + moving_capture_row_indicator] == " " and
+                                array_of_board[column_index_of_moving_piece + column_possible_move][
+                                    row_index_of_moving_piece + moving_row_indicator] == enemy_piece and
+                                array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                                    row_index_of_moving_piece + moving_capture_row_indicator] not in possible_capture_moves):
+                            possible_capture_moves.append(
+                                array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                                    row_index_of_moving_piece + moving_capture_row_indicator])
+                            column_of_captured_piece = column_index_of_moving_piece + column_possible_move
+                            row_of_captured_piece = row_index_of_moving_piece + moving_row_indicator
+                            captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
+                                row_of_captured_piece]
                     except IndexError:
                         pass
 
-            if not possible_moves:
+            if possible_moves and possible_capture_moves:
+                for num in possible_capture_moves:
+                    if num in possible_moves:
+                        possible_moves.remove(num)
+            if not possible_moves and not possible_capture_moves:
                 print(f"There can not be done any moves to {moving_piece}")
             else:
                 print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
+                if possible_capture_moves:
+                    print(f"You can capture {captured_num_in_helping_board} by: {' '.join(map(str, possible_capture_moves))}")
                 is_choosing_move = True
                 while is_choosing_move:
+                    is_capturing = False
                     final_move = int(input("Move: "))
-                    for num in possible_moves:
+                    if final_move in possible_moves:
+                        final_array_of_moves = possible_moves
+                    else:
+                        final_array_of_moves = possible_capture_moves
+                        is_capturing = True
+
+                    for num in final_array_of_moves:
                         if final_move == num:
                             array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] = " "
                             for column in array_of_board_helping:
@@ -180,7 +251,12 @@ def move_piece(self, name):
                                                 O_queens[final_column][final_row] = 1
                                             array_of_board[final_column][final_row] = "O"
                                             array_of_O_pieces.clear()
-                                        possible_moves.clear()
+                                        if is_capturing:
+                                            if captured_num_in_helping_board in array_of_X_pieces:
+                                                array_of_X_pieces.remove(captured_num_in_helping_board)
+                                            else:
+                                                array_of_O_pieces.remove(captured_num_in_helping_board)
+                                            array_of_board[column_of_captured_piece][row_of_captured_piece] = " "
                                         methods.Queen(final_column, final_row).has_queen(self, name)
                                         is_choosing_move = False
                                         is_choosing = False
