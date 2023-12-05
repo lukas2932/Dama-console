@@ -27,14 +27,17 @@ def gameplay_method(first_player_name, first_player_total_pieces, second_player_
         for num in range(2):
             if num == 0:
                 enemy_player = second_player_name
+                print("------------------------------------------")
+                print(f"{starting_player}{starting_players_piece} is playing.")
+                print(end="\n")
             else:
                 enemy_player = first_player_name
+                print("------------------------------------------")
+                print(f"{next_player}{next_players_piece} is playing.")
+                print(end="\n")
 
             playing_variable = methods.playing_variable_check(playing_variable)
 
-            print("------------------------------------------")
-            print(f"{starting_player}{starting_players_piece} is playing.")
-            print(end="\n")
             board.print_board()
             board.print_helping_board()
             move_piece(playing_variable, enemy_player)
