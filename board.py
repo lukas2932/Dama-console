@@ -36,7 +36,6 @@ def create_figures():
     x_pieces_counter = 0
     o_pieces_counter = 0
     reverse = False
-
     for column in range(3):
         for row in range(16):
             if reverse:
@@ -60,11 +59,13 @@ def create_figures():
         else:
             reverse = True
 
-    array_of_board[0][5] = " "
-    array_of_board[1][3] = "O"
+    array_of_board[1][3] = "X"
+    array_of_board[2][5] = "O"
+
+    array_of_board[3][3] = "X"
+    array_of_board[4][5] = "O"
 
     return x_pieces_counter, o_pieces_counter
-
 
 def print_board():
     x_pieces_counter = 0
@@ -138,7 +139,7 @@ def print_helping_board():
 def move_piece(self, name):
     is_choosing = True
     while is_choosing:
-        moving_piece = methods.input_correction("Select a piece you want to move: ")
+        moving_piece = int(input("Select a piece you want to move: "))
         column_index_of_moving_piece = 0
         row_index_of_moving_piece = 0
         queen_playing = False
@@ -214,18 +215,16 @@ def move_piece(self, name):
                 for num in possible_capture_moves:
                     if num in possible_moves:
                         possible_moves.remove(num)
-            #Pridat - Pokud hrac vyradi figurku a muze vyradit jeste jakoukoliv dalsi, tak tak musi ucinit
             if not possible_moves and not possible_capture_moves:
                 print(f"There can not be done any moves to {moving_piece}")
             else:
-                if possible_moves:
-                    print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
+                print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
                 if possible_capture_moves:
                     print(f"You can capture {captured_num_in_helping_board} by: {' '.join(map(str, possible_capture_moves))}")
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False
-                    final_move = methods.input_correction("Move: ")
+                    final_move = int(input("Move: "))
                     if final_move in possible_moves:
                         final_array_of_moves = possible_moves
                     else:

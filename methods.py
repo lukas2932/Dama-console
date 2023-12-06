@@ -76,12 +76,15 @@ class Queen:
                     break
                 try:
                     if enemy_piece_confirmed:
-                        if array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] != " ":
+                        if array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] == enemy_piece:
                             enemy_piece_confirmed = False
                             can_go = False
+                            pass
                         else:
                             final_result.append(array_of_board_helping[self.index_of_column + column_increase][
                                                     self.index_of_row + row_increase])
+                            print(self.index_of_column + column_increase,
+                                                    self.index_of_row + row_increase)
                             column_of_captured_piece = self.index_of_column + previous_column_increase
                             row_of_captured_piece = self.index_of_row + previous_row_increase
                             captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][row_of_captured_piece]
@@ -92,6 +95,9 @@ class Queen:
                             enemy_piece_confirmed = True
                             previous_column_increase = column_increase
                             previous_row_increase = row_increase
+
+                            print(array_of_board_helping[self.index_of_column + column_increase][
+                                      self.index_of_row + row_increase])
 
                 except IndexError:
                     break
@@ -152,12 +158,3 @@ def players_pieces_check():
                 o_counter += 1
 
     return x_counter, o_counter
-
-
-def input_correction(message):
-    while True:
-        try:
-            final_result = int(input(message))
-            return final_result
-        except:
-            continue
