@@ -66,9 +66,6 @@ def game():
     while is_playing:
         board.create_board()
         board.create_figures()
-        all_pieces = methods.players_pieces_check()
-        first_player_total_pieces = all_pieces[0]
-        second_player_total_pieces = all_pieces[1]
 
         first_player_name = str(input("First player name: ")).strip()
         second_player_name = str(input("Second player name: ")).strip()
