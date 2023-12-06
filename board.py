@@ -2,6 +2,7 @@ import methods
 from colorama import Fore
 from values import *
 
+
 def create_board():
     for column in range(8):
         row_counter = 0
@@ -66,6 +67,7 @@ def create_figures():
     array_of_board[4][5] = "O"
 
     return x_pieces_counter, o_pieces_counter
+
 
 def print_board():
     x_pieces_counter = 0
@@ -159,7 +161,6 @@ def move_piece(self, name):
 
         if ((array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "X" and self)
                 or (array_of_board[column_index_of_moving_piece][row_index_of_moving_piece] == "O" and not self)):
-            possible_moves = []
             possible_capture_moves = []
             column_of_captured_piece = 0
             row_of_captured_piece = 0
@@ -168,7 +169,8 @@ def move_piece(self, name):
                     O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
                 possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
                 queen_playing = True
-                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_capture(enemy_piece)
+                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_capture(
+                    enemy_piece)
                 if type(return_array[0]) == list:
                     for item in return_array[0]:
                         possible_capture_moves.append(item)
@@ -179,37 +181,17 @@ def move_piece(self, name):
                 captured_num_in_helping_board = return_array[3]
 
             else:
-                for num in range(4):
-                    if num % 2 == 0:
-                        moving_row_indicator = 2
-                        moving_capture_row_indicator = 4
-                    else:
-                        moving_row_indicator = -2
-                        moving_capture_row_indicator = -4
-                    try:
-                        if (array_of_board[column_index_of_moving_piece + column_possible_move][
-                            row_index_of_moving_piece + moving_row_indicator] == " " and
-                                array_of_board_helping[column_index_of_moving_piece + column_possible_move][
-                                    row_index_of_moving_piece + moving_row_indicator] not in possible_moves):
-                            possible_moves.append(
-                                array_of_board_helping[column_index_of_moving_piece + column_possible_move][
-                                    row_index_of_moving_piece + moving_row_indicator])
-
-                        if (array_of_board[column_index_of_moving_piece + column_possible_move * 2][
-                            row_index_of_moving_piece + moving_capture_row_indicator] == " " and
-                                array_of_board[column_index_of_moving_piece + column_possible_move][
-                                    row_index_of_moving_piece + moving_row_indicator] == enemy_piece and
-                                array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
-                                    row_index_of_moving_piece + moving_capture_row_indicator] not in possible_capture_moves):
-                            possible_capture_moves.append(
-                                array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
-                                    row_index_of_moving_piece + moving_capture_row_indicator])
-                            column_of_captured_piece = column_index_of_moving_piece + column_possible_move
-                            row_of_captured_piece = row_index_of_moving_piece + moving_row_indicator
-                            captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
-                                row_of_captured_piece]
-                    except IndexError:
-                        pass
+                return_array = methods.available_moves_normal(column_index_of_moving_piece, row_index_of_moving_piece,
+                                                              column_possible_move, enemy_piece)
+                if len(return_array) > 2:
+                    possible_moves = return_array[0]
+                    possible_capture_moves = return_array[1]
+                    column_of_captured_piece = return_array[2]
+                    row_of_captured_piece = return_array[3]
+                    captured_num_in_helping_board = return_array[4]
+                else:
+                    possible_moves = return_array[0]
+                    possible_capture_moves = return_array[1]
 
             if possible_moves and possible_capture_moves:
                 for num in possible_capture_moves:
@@ -218,13 +200,15 @@ def move_piece(self, name):
             if not possible_moves and not possible_capture_moves:
                 print(f"There can not be done any moves to {moving_piece}")
             else:
-                print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
+                if possible_moves:
+                    print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
                 if possible_capture_moves:
-                    print(f"You can capture {captured_num_in_helping_board} by: {' '.join(map(str, possible_capture_moves))}")
+                    print(
+                        f"You can capture {captured_num_in_helping_board} by: {' '.join(map(str, possible_capture_moves))}")
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False
-                    final_move = int(input("Move: "))
+                    final_move = methods.input_correction("Move: ")
                     if final_move in possible_moves:
                         final_array_of_moves = possible_moves
                     else:

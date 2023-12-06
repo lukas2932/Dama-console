@@ -37,7 +37,8 @@ class Queen:
                     if array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] == " ":
                         final_result.append(array_of_board_helping[self.index_of_column + column_increase][
                                                 self.index_of_row + row_increase])
-                    if not array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] == " ":
+                    if not array_of_board[self.index_of_column + column_increase][
+                               self.index_of_row + row_increase] == " ":
                         break
                 except IndexError:
                     break
@@ -76,7 +77,8 @@ class Queen:
                     break
                 try:
                     if enemy_piece_confirmed:
-                        if array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] == enemy_piece:
+                        if array_of_board[self.index_of_column + column_increase][
+                            self.index_of_row + row_increase] == enemy_piece:
                             enemy_piece_confirmed = False
                             can_go = False
                             pass
@@ -84,10 +86,11 @@ class Queen:
                             final_result.append(array_of_board_helping[self.index_of_column + column_increase][
                                                     self.index_of_row + row_increase])
                             print(self.index_of_column + column_increase,
-                                                    self.index_of_row + row_increase)
+                                  self.index_of_row + row_increase)
                             column_of_captured_piece = self.index_of_column + previous_column_increase
                             row_of_captured_piece = self.index_of_row + previous_row_increase
-                            captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][row_of_captured_piece]
+                            captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
+                                row_of_captured_piece]
                             enemy_piece_confirmed = False
                     if can_go:
                         if array_of_board[self.index_of_column + column_increase][
@@ -112,8 +115,6 @@ class Queen:
                     column_increase -= 1
 
         return final_result, column_of_captured_piece, row_of_captured_piece, captured_num_in_helping_board
-
-
 
 
 def print_helping_nums(index_of_column, index_of_row, row, indicator):
@@ -158,3 +159,59 @@ def players_pieces_check():
                 o_counter += 1
 
     return x_counter, o_counter
+
+
+def available_moves_normal(column_index_of_moving_piece, row_index_of_moving_piece, column_possible_move, enemy_piece):
+    result_possible_moves = []
+    result_possible_capture_moves = []
+    column_of_captured_piece = 0
+    row_of_captured_piece = 0
+    captured_num_in_helping_board = 0
+    is_capturing = False
+    for num in range(4):
+        if num % 2 == 0:
+            moving_row_indicator = 2
+            moving_capture_row_indicator = 4
+        else:
+            moving_row_indicator = -2
+            moving_capture_row_indicator = -4
+        try:
+            if (array_of_board[column_index_of_moving_piece + column_possible_move][
+                row_index_of_moving_piece + moving_row_indicator] == " " and
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move][
+                        row_index_of_moving_piece + moving_row_indicator] not in result_possible_moves):
+                result_possible_moves.append(
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move][
+                        row_index_of_moving_piece + moving_row_indicator])
+
+            if (array_of_board[column_index_of_moving_piece + column_possible_move * 2][
+                row_index_of_moving_piece + moving_capture_row_indicator] == " " and
+                    array_of_board[column_index_of_moving_piece + column_possible_move][
+                        row_index_of_moving_piece + moving_row_indicator] == enemy_piece and
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                        row_index_of_moving_piece + moving_capture_row_indicator] not in result_possible_capture_moves):
+                result_possible_capture_moves.append(
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                        row_index_of_moving_piece + moving_capture_row_indicator])
+                column_of_captured_piece = column_index_of_moving_piece + column_possible_move
+                row_of_captured_piece = row_index_of_moving_piece + moving_row_indicator
+                captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
+                    row_of_captured_piece]
+                is_capturing = True
+        except IndexError:
+            pass
+
+    if is_capturing:
+        return (result_possible_moves, result_possible_capture_moves,
+                column_of_captured_piece, row_of_captured_piece, captured_num_in_helping_board)
+    else:
+        return result_possible_moves, result_possible_capture_moves
+
+
+def input_correction(message):
+    while True:
+        try:
+            result = int(input(message))
+            return result
+        except:
+            pass
