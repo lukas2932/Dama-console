@@ -60,8 +60,10 @@ def create_figures():
         else:
             reverse = True
 
-    array_of_board[1][3] = "O"
-    array_of_board[0][5] = " "
+    array_of_board[6][5] = "X"
+    array_of_board[7][7] = " "
+    array_of_board[5][3] = " "
+    array_of_board[5][11] = " "
 
     return x_pieces_counter, o_pieces_counter
 
@@ -162,7 +164,8 @@ def move_piece(self, name):
             possible_capture_moves = []
             column_of_captured_piece = 0
             row_of_captured_piece = 0
-            captured_num_in_helping_board = 0
+            coo_of_potential_capture_able_pieces = {}
+            dict_of_capture_nums = {}
             if (X_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1 or
                     O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
                 possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
@@ -176,7 +179,6 @@ def move_piece(self, name):
                     possible_capture_moves = return_array[0]
                 column_of_captured_piece = return_array[1]
                 row_of_captured_piece = return_array[2]
-                captured_num_in_helping_board = return_array[3]
                 dict_of_capture_nums = return_array[4]
                 coo_of_potential_capture_able_pieces = return_array[5]
                 if dict_of_capture_nums:
@@ -190,7 +192,10 @@ def move_piece(self, name):
                     possible_capture_moves = return_array[1]
                     column_of_captured_piece = return_array[2]
                     row_of_captured_piece = return_array[3]
-                    captured_num_in_helping_board = return_array[4]
+                    coo_of_potential_capture_able_pieces = return_array[5]
+                    dict_of_capture_nums = return_array[6]
+                    for key, value in coo_of_potential_capture_able_pieces.items():
+                        print(key, value)
                 else:
                     possible_moves = return_array[0]
                     possible_capture_moves = return_array[1]
@@ -205,11 +210,11 @@ def move_piece(self, name):
                 if possible_moves:
                     print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
                 if possible_capture_moves:
-                    if queen_is_capturing:
-                        for key, value in dict_of_capture_nums.items():
+                    for key, value in dict_of_capture_nums.items():
+                        if queen_is_capturing:
                             print(f"You can capture {key} by: {value}")
-                    else:
-                        print(f"You can capture {captured_num_in_helping_board} by: {' '.join(map(str, possible_capture_moves))}")
+                        else:
+                            print(f"You can capture {key} by: {' '.join(map(str, value))}")
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False

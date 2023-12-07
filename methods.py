@@ -1,5 +1,5 @@
 from colorama import Fore
-from values import *
+from values import X_queens, O_queens, array_of_board, array_of_board_helping
 
 
 class Queen:
@@ -89,10 +89,12 @@ class Queen:
                             row_of_captured_piece = self.index_of_row + previous_row_increase
                             captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
                                 row_of_captured_piece]
-                            dict_of_capture_nums[captured_num_in_helping_board] = array_of_board_helping[self.index_of_column + column_increase][
-                                                    self.index_of_row + row_increase]
-                            coo_of_potential_capture_able_pieces[array_of_board_helping[self.index_of_column + column_increase][
-                                                    self.index_of_row + row_increase]] = column_of_captured_piece, row_of_captured_piece
+                            dict_of_capture_nums[captured_num_in_helping_board] = \
+                                array_of_board_helping[self.index_of_column + column_increase][
+                                    self.index_of_row + row_increase]
+                            coo_of_potential_capture_able_pieces[
+                                array_of_board_helping[self.index_of_column + column_increase][
+                                    self.index_of_row + row_increase]] = column_of_captured_piece, row_of_captured_piece
                             break
                     if array_of_board[self.index_of_column + column_increase][
                         self.index_of_row + row_increase] == enemy_piece and not enemy_piece_confirmed:
@@ -112,7 +114,8 @@ class Queen:
                         column_increase += 1
                     else:
                         column_increase -= 1
-        return final_result, column_of_captured_piece, row_of_captured_piece, captured_num_in_helping_board, dict_of_capture_nums, coo_of_potential_capture_able_pieces
+        return (final_result, column_of_captured_piece, row_of_captured_piece,
+                captured_num_in_helping_board, dict_of_capture_nums, coo_of_potential_capture_able_pieces)
 
 
 def print_helping_nums(index_of_column, index_of_row, row, indicator):
@@ -165,6 +168,8 @@ def available_moves_normal(column_index_of_moving_piece, row_index_of_moving_pie
     column_of_captured_piece = 0
     row_of_captured_piece = 0
     captured_num_in_helping_board = 0
+    coo_of_potential_capture_able_pieces = {}
+    dict_of_capture_nums = {}
     is_capturing = False
     for num in range(4):
         if num % 2 == 0:
@@ -195,13 +200,21 @@ def available_moves_normal(column_index_of_moving_piece, row_index_of_moving_pie
                 row_of_captured_piece = row_index_of_moving_piece + moving_row_indicator
                 captured_num_in_helping_board = array_of_board_helping[column_of_captured_piece][
                     row_of_captured_piece]
+                coo_of_potential_capture_able_pieces[
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                        row_index_of_moving_piece + moving_capture_row_indicator]] = (
+                    column_of_captured_piece, row_of_captured_piece)
+                dict_of_capture_nums[array_of_board_helping[column_of_captured_piece][row_of_captured_piece]] = [
+                    array_of_board_helping[column_index_of_moving_piece + column_possible_move * 2][
+                        row_index_of_moving_piece + moving_capture_row_indicator]]
                 is_capturing = True
         except IndexError:
             pass
 
     if is_capturing:
         return (result_possible_moves, result_possible_capture_moves,
-                column_of_captured_piece, row_of_captured_piece, captured_num_in_helping_board)
+                column_of_captured_piece, row_of_captured_piece, captured_num_in_helping_board,
+                coo_of_potential_capture_able_pieces, dict_of_capture_nums)
     else:
         return result_possible_moves, result_possible_capture_moves
 
