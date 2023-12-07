@@ -137,10 +137,10 @@ def print_helping_board():
 
 
 # Rozdeleni metody move_piece
-def move_piece(self, name):
+def move_piece(self, name, texts):
     is_choosing = True
     while is_choosing:
-        moving_piece = methods.input_correction("Select a piece you want to move: ")
+        moving_piece = methods.input_correction(texts["select"])
         column_index_of_moving_piece = 0
         row_index_of_moving_piece = 0
         queen_playing = False
@@ -168,9 +168,9 @@ def move_piece(self, name):
             dict_of_capture_nums = {}
             if (X_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1 or
                     O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
-                possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_movement()
+                possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_movement()
                 queen_playing = True
-                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece).queen_capture(
+                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_capture(
                     enemy_piece)
                 if type(return_array[0]) == list:
                     for item in return_array[0]:
@@ -205,20 +205,20 @@ def move_piece(self, name):
                     if num in possible_moves:
                         possible_moves.remove(num)
             if not possible_moves and not possible_capture_moves:
-                print(f"There can not be done any moves to {moving_piece}")
+                print(texts["cant_be_moved"].format(moving_piece=moving_piece))
             else:
                 if possible_moves:
-                    print(f"Possible moves in {moving_piece} are: {' '.join(map(str, possible_moves))}")
+                    print(texts["possible_moves"].format(moving_piece=moving_piece, possible_moves=' '.join(map(str, possible_moves))))
                 if possible_capture_moves:
                     for key, value in dict_of_capture_nums.items():
                         if queen_is_capturing:
-                            print(f"You can capture {key} by: {value}")
+                            print(texts["can_capture"].format(key=key, value=value))
                         else:
-                            print(f"You can capture {key} by: {' '.join(map(str, value))}")
+                            print(texts["can_capture"].format(key=key,value=' '.join(map(str, value))))
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False
-                    final_move = methods.input_correction("Move: ")
+                    final_move = methods.input_correction(texts["move"])
                     if final_move in possible_moves:
                         final_array_of_moves = possible_moves
                     else:
@@ -252,6 +252,6 @@ def move_piece(self, name):
                                             array_of_board[column_of_captured_piece][row_of_captured_piece] = " "
                                         array_of_O_pieces.clear()
                                         array_of_X_pieces.clear()
-                                        methods.Queen(final_column, final_row).has_queen(self, name)
+                                        methods.Queen(final_column, final_row, texts).has_queen(self, name)
                                         is_choosing_move = False
                                         is_choosing = False

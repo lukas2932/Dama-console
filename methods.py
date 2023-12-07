@@ -3,19 +3,20 @@ from values import X_queens, O_queens, array_of_board, array_of_board_helping
 
 
 class Queen:
-    def __init__(self, index_of_column, index_of_row):
+    def __init__(self, index_of_column, index_of_row, texts):
         self.index_of_column = index_of_column
         self.index_of_row = index_of_row
+        self.texts = texts
 
     def has_queen(self, player, name):
         if player and self.index_of_column == 7:
-            print(f"Player {name} obtained queen.")
+            print(self.texts["obtained_queen"].format(name=name))
 
             X_queens[self.index_of_column][self.index_of_row] = True
 
         elif not player and self.index_of_column == 0:
-            print(f"Player {name} obtained queen.")
-
+            print(self.texts["obtained_queen"].format(name=name))
+            
             O_queens[self.index_of_column][self.index_of_row] = 1
 
     def queen_movement(self):
