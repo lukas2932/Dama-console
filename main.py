@@ -1,7 +1,6 @@
-import board
 import random
+import board
 import corrections_and_detections
-from board import *
 from languages import language
 
 first_player_total_pieces = 12
@@ -10,7 +9,10 @@ second_player_total_pieces = 12
 
 def choose_language():
     while True:
-        select_language = input("Choose between czech [cs] or english [en] / Vyber si mezi češtinou [cs] nebo angličtinou [en]: ")
+        select_language = input(
+            "Choose between czech [cs] or english [en] / "
+            "Vyber si mezi češtinou [cs] nebo angličtinou [en]: "
+        )
         if select_language == "cs":
             return language("cs")
         elif select_language == "en":
@@ -52,7 +54,7 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
             print(end="\n")
             board.print_board()
             board.print_helping_board()
-            move_piece(playing_variable, playing_player, texts)
+            board.move_piece(playing_variable, playing_player, texts)
 
             all_pieces = corrections_and_detections.players_pieces_check()
             first_player_total_pieces = all_pieces[0]

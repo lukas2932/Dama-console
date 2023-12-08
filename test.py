@@ -9,8 +9,8 @@ import corrections_and_detections
     (True, False)
 ])
 def test_playing_variable_check(playing_variable, expected):
-    result = corrections_and_detections.playing_variable_check(True)
-    assert not result
+    result = corrections_and_detections.playing_variable_check(playing_variable)
+    assert result == expected
 
 
 def test_create_figures():
@@ -65,3 +65,18 @@ def test_print_helping_board_and_print_board():
     assert final_result_1, final_result_2
 
 
+@pytest.mark.parametrize('user_input, expected', [
+    ("ahoj", False),
+    (22, True)
+])
+
+def test_input_correction(user_input, expected):
+    final_result = False
+    try:
+        input = int(user_input)
+        final_result = True
+    except:
+        final_result = False
+        pass
+
+    assert final_result == expected

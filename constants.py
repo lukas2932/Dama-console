@@ -6,4 +6,3 @@ array_of_O_pieces = []
 
 X_queens = [["|" for _ in range(17)] for _ in range(8)]
 O_queens = [["|" for _ in range(17)] for _ in range(8)]
-

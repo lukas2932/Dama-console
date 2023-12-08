@@ -1,4 +1,3 @@
-from colorama import Fore
 from constants import X_queens, O_queens, array_of_board, array_of_board_helping
 
 
@@ -11,12 +10,10 @@ class Queen:
     def has_queen(self, player, name):
         if player and self.index_of_column == 7:
             print(self.texts["obtained_queen"].format(name=name))
-
             X_queens[self.index_of_column][self.index_of_row] = True
 
         elif not player and self.index_of_column == 0:
             print(self.texts["obtained_queen"].format(name=name))
-            
             O_queens[self.index_of_column][self.index_of_row] = 1
 
     def queen_movement(self):
@@ -32,12 +29,16 @@ class Queen:
                 row_increase = -2
 
             while True:
-                if not -15 <= self.index_of_row + row_increase <= 15 or not 0 <= self.index_of_column + column_increase <= 7:
+                if (not -15 <= self.index_of_row + row_increase <= 15 or
+                        not 0 <= self.index_of_column + column_increase <= 7):
                     break
                 try:
-                    if array_of_board[self.index_of_column + column_increase][self.index_of_row + row_increase] == " ":
-                        final_result.append(array_of_board_helping[self.index_of_column + column_increase][
-                                                self.index_of_row + row_increase])
+                    if (array_of_board[self.index_of_column + column_increase]
+                        [self.index_of_row + row_increase] == " "):
+                        final_result.append(
+                            array_of_board_helping[self.index_of_column + column_increase][
+                                                self.index_of_row + row_increase]
+                        )
                     if not array_of_board[self.index_of_column + column_increase][
                                self.index_of_row + row_increase] == " ":
                         break
@@ -75,7 +76,8 @@ class Queen:
             previous_column_increase = 0
             previous_row_increase = 0
             for second_num in range(2):
-                if not -15 <= self.index_of_row + row_increase <= 15 or not 0 <= self.index_of_column + column_increase <= 7:
+                if (not -15 <= self.index_of_row + row_increase <= 15 or
+                        not 0 <= self.index_of_column + column_increase <= 7):
                     break
                 try:
                     if enemy_piece_confirmed:
