@@ -1,10 +1,12 @@
 import board
 import random
+import corrections_and_detections
 from board import *
 from languages import language
 
 first_player_total_pieces = 12
 second_player_total_pieces = 12
+
 
 def choose_language():
     while True:
@@ -15,6 +17,7 @@ def choose_language():
             return language("en")
         else:
             print("Incorrect choice / Neplatná volba")
+
 
 def gameplay_method(first_player_name, second_player_name, first_play, texts):
     if first_play == 1:
@@ -44,7 +47,7 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
                 playing_player = next_player
                 playing_player_pieces = next_players_piece
 
-            playing_variable = methods.playing_variable_check(playing_variable)
+            playing_variable = corrections_and_detections.playing_variable_check(playing_variable)
 
             print("------------------------------------------")
             print(texts["Playing"].format(playing_player=playing_player, playing_player_pieces=playing_player_pieces))
@@ -53,11 +56,11 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
             board.print_helping_board()
             move_piece(playing_variable, enemy_player, texts)
 
-            all_pieces = methods.players_pieces_check()
+            all_pieces = corrections_and_detections.players_pieces_check()
             first_player_total_pieces = all_pieces[0]
             second_player_total_pieces = all_pieces[1]
 
-            if first_player_total_pieces == 1 or second_player_total_pieces == 1:
+            if first_player_total_pieces == 0 or second_player_total_pieces == 0:
                 if first_player_total_pieces == 0:
                     print(texts["First_won"].format(first_player_name=first_player_name))
                 else:
@@ -76,7 +79,7 @@ def game(texts):
     while is_playing:
         board.create_board()
         board.create_figures()
-        
+
         first_player_name = str(input(texts["First_player_name"])).strip()
         second_player_name = str(input(texts["Second_player_name"])).strip()
 
@@ -106,6 +109,7 @@ def game(texts):
                 break
             else:
                 print(texts["Incorrect"])
+
 
 if __name__ == '__main__':
     game(choose_language())

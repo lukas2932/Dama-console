@@ -1,6 +1,7 @@
-import methods
+import queen
+import corrections_and_detections
 from colorama import Fore
-from values import *
+from constants import *
 
 
 def create_board():
@@ -116,9 +117,9 @@ def print_helping_board():
             index_of_column = array_of_board_helping.index(column)
             index_of_row = column.index(row)
             if row in array_of_X_pieces:
-                methods.print_helping_nums(index_of_column, index_of_row, row, "X")
+                corrections_and_detections.print_helping_nums(index_of_column, index_of_row, row, "X")
             elif row in array_of_O_pieces:
-                methods.print_helping_nums(index_of_column, index_of_row, row, "O")
+                corrections_and_detections.print_helping_nums(index_of_column, index_of_row, row, "O")
             else:
                 if not row == "|" and row < 10:
                     print(Fore.WHITE + f" {row}" + Fore.WHITE, end=" ")
@@ -135,7 +136,7 @@ def print_helping_board():
 def move_piece(self, name, texts):
     is_choosing = True
     while is_choosing:
-        moving_piece = methods.input_correction(texts["select"])
+        moving_piece = corrections_and_detections.input_correction(texts["select"])
         column_index_of_moving_piece = 0
         row_index_of_moving_piece = 0
         queen_playing = False
@@ -163,9 +164,9 @@ def move_piece(self, name, texts):
             dict_of_capture_nums = {}
             if (X_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1 or
                     O_queens[column_index_of_moving_piece][row_index_of_moving_piece] == 1):
-                possible_moves = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_movement()
+                possible_moves = queen.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_movement()
                 queen_playing = True
-                return_array = methods.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_capture(
+                return_array = queen.Queen(column_index_of_moving_piece, row_index_of_moving_piece, texts).queen_capture(
                     enemy_piece)
                 if type(return_array[0]) == list:
                     for item in return_array[0]:
@@ -180,7 +181,7 @@ def move_piece(self, name, texts):
                     queen_is_capturing = True
 
             else:
-                return_array = methods.available_moves_normal(column_index_of_moving_piece, row_index_of_moving_piece,
+                return_array = corrections_and_detections.available_moves_normal(column_index_of_moving_piece, row_index_of_moving_piece,
                                                               column_possible_move, enemy_piece)
                 if len(return_array) > 2:
                     possible_moves = return_array[0]
@@ -211,7 +212,7 @@ def move_piece(self, name, texts):
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False
-                    final_move = methods.input_correction(texts["move"])
+                    final_move = corrections_and_detections.input_correction(texts["move"])
                     if final_move in possible_moves:
                         final_array_of_moves = possible_moves
                     else:
@@ -245,6 +246,6 @@ def move_piece(self, name, texts):
                                             array_of_board[column_of_captured_piece][row_of_captured_piece] = " "
                                         array_of_O_pieces.clear()
                                         array_of_X_pieces.clear()
-                                        methods.Queen(final_column, final_row, texts).has_queen(self, name)
+                                        queen.Queen(final_column, final_row, texts).has_queen(self, name)
                                         is_choosing_move = False
                                         is_choosing = False

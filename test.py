@@ -1,7 +1,7 @@
 import pytest
 
 import board
-import methods
+import corrections_and_detections
 
 
 @pytest.mark.parametrize('playing_variable, expected', [
@@ -9,7 +9,7 @@ import methods
     (True, False)
 ])
 def test_playing_variable_check(playing_variable, expected):
-    result = methods.playing_variable_check(True)
+    result = corrections_and_detections.playing_variable_check(True)
     assert not result
 
 
@@ -25,7 +25,7 @@ def test_create_figures():
 
 def test_players_pieces_check():
     board.create_board()
-    final_array = methods.players_pieces_check()
+    final_array = corrections_and_detections.players_pieces_check()
     result_1 = final_array[0]
     result_2 = final_array[1]
 
@@ -39,7 +39,7 @@ def test_create_figures_and_players_pieces_check():
     result_figure_1 = final_figure_array[0]
     result_figure_2 = final_figure_array[1]
 
-    final_pieces_array = methods.players_pieces_check()
+    final_pieces_array = corrections_and_detections.players_pieces_check()
     result_pieces_1 = final_pieces_array[0]
     result_pieces_2 = final_pieces_array[1]
 
