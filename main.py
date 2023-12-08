@@ -76,13 +76,11 @@ def game(texts):
     while is_playing:
         board.create_board()
         board.create_figures()
-
+        
         first_player_name = str(input(texts["First_player_name"])).strip()
         second_player_name = str(input(texts["Second_player_name"])).strip()
 
         who_begins_num = random.randint(1, 2)
-        print(who_begins_num)
-        print(end="\n")
 
         print(texts["First_player_piece"].format(first_player_name=first_player_name))
         print(texts["Second_player_piece"].format(second_player_name=second_player_name))
