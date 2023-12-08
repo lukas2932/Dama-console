@@ -1,11 +1,11 @@
 def language(choice):
     texts = {
         "begins": {"en": "Player {starting_player} begins as first.", "cs": "Hráč {starting_player} začíná jako první."},
-        "obtained_queen": {"en": "Player {playing_player} obtained queen.", "cs": "Hráč {playing_player} získal Dámu."},
+        "obtained_queen": {"en": "Player {name} obtained queen.", "cs": "Hráč {name} získal Dámu."},
         "select": {"en": "Select a piece you want to move: ", "cs": "Vyber figurku, s kterou chceš pohnout: "},
-        "cant_be_moved": {"en": "There can not be done any moves to {moving_piece}", "cs": "S figurkou {moving_piece} nelze pohnout"},
+        "cant_be_moved": {"en": "There can not be done any moves to {moving_piece}", "cs": "S touho figurkou nelze pohnout {moving_piece}"},
         "possible_moves": {"en": "Possible moves in {moving_piece} are: {possible_moves}", "cs": "Možné poyhyby pro {moving_piece} jsou: {possible_moves}"},
-        "can_capture": {"en": "You can capture {key} by: {value}", "cs": "Můžeš přeskočit {key} na: {value}"},
+        "can_capture": {"en": "You can capture {key} by: {value}", "cs": "Můžeš přeskočit {key} s: {value}"},
         "move": {"en": "Move to: ", "cs": "Pohnout na: "},
         "no": {"en": "no", "cs": "ne"},
         "yes": {"en": "yes", "cs": "ano"},

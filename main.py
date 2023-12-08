@@ -39,11 +39,9 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
     while True:
         for num in range(2):
             if num == 0:
-                enemy_player = second_player_name
                 playing_player = starting_player
                 playing_player_pieces = starting_players_piece
             else:
-                enemy_player = first_player_name
                 playing_player = next_player
                 playing_player_pieces = next_players_piece
 
@@ -54,7 +52,7 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
             print(end="\n")
             board.print_board()
             board.print_helping_board()
-            move_piece(playing_variable, enemy_player, texts)
+            move_piece(playing_variable, playing_player, texts)
 
             all_pieces = corrections_and_detections.players_pieces_check()
             first_player_total_pieces = all_pieces[0]
