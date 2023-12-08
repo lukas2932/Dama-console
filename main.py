@@ -10,7 +10,7 @@ def choose_language():
     while True:
         select_language = input("Choose between czech [cs] or english [en] / Vyber si mezi češtinou [cs] nebo angličtinou [en]: ")
         if select_language == "cs":
-            return language("cs") 
+            return language("cs")
         elif select_language == "en":
             return language("en")
         else:
@@ -59,7 +59,7 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
 
             if first_player_total_pieces == 1 or second_player_total_pieces == 1:
                 if first_player_total_pieces == 0:
-                    print(texts["First_won"].format(first_player_name=first_player_name))    
+                    print(texts["First_won"].format(first_player_name=first_player_name))
                 else:
                    print(texts["Second_won"].format(second_player_name=second_player_name))
                 is_finished = True
@@ -95,10 +95,11 @@ def game(texts):
 
         print(end="\n")
         print(texts["again"])
-         
+
         while True:
             play_again = input(texts["answer"].format(yes=texts["yes"], no=texts["no"]))
-        
+            print()
+
             if play_again == texts["no"]:
                 is_playing = False
                 print(texts["End"])
@@ -107,6 +108,6 @@ def game(texts):
                 break
             else:
                 print(texts["Incorrect"])
-               
+
 if __name__ == '__main__':
     game(choose_language())

@@ -9,7 +9,7 @@ def language(choice):
         "move": {"en": "Move to: ", "cs": "Pohnout na: "},
         "no": {"en": "no", "cs": "ne"},
         "yes": {"en": "yes", "cs": "ano"},
-        "answer": {"en": "Answer[{yes} / {no}]: ", "cs": "Odpoveď[{yes} / {no}]"},
+        "answer": {"en": "Answer[{yes} / {no}]: ", "cs": "Odpoveď[{yes} / {no}]: "},
         "End": {"en": "You ended game.", "cs": "Ukončil jsi hru."},
         "Incorrect": {"en": "Incorrect choice", "cs": "Neplatná volba"},
         "again": {"en": "Do you want to play again? ", "cs": "Chceš hrát znovu? "},

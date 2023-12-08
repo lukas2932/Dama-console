@@ -60,11 +60,6 @@ def create_figures():
         else:
             reverse = True
 
-    array_of_board[6][5] = "X"
-    array_of_board[7][7] = " "
-    array_of_board[5][3] = " "
-    array_of_board[5][11] = " "
-
     return x_pieces_counter, o_pieces_counter
 
 
@@ -194,8 +189,6 @@ def move_piece(self, name, texts):
                     row_of_captured_piece = return_array[3]
                     coo_of_potential_capture_able_pieces = return_array[5]
                     dict_of_capture_nums = return_array[6]
-                    for key, value in coo_of_potential_capture_able_pieces.items():
-                        print(key, value)
                 else:
                     possible_moves = return_array[0]
                     possible_capture_moves = return_array[1]
