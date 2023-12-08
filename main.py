@@ -1,7 +1,10 @@
 import random
+
 import board
+import constants
 import corrections_and_detections
 from languages import language
+from constants import X_queens, O_queens
 
 first_player_total_pieces = 12
 second_player_total_pieces = 12
@@ -106,6 +109,8 @@ def game(texts):
                 print(texts["End"])
                 break
             elif play_again == texts["yes"]:
+                corrections_and_detections.queen_array_clean(X_queens)
+                corrections_and_detections.queen_array_clean(O_queens)
                 break
             else:
                 print(texts["Incorrect"])

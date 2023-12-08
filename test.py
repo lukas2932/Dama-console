@@ -69,9 +69,7 @@ def test_print_helping_board_and_print_board():
     ("ahoj", False),
     (22, True)
 ])
-
 def test_input_correction(user_input, expected):
-    final_result = False
     try:
         input = int(user_input)
         final_result = True

@@ -110,3 +110,12 @@ def input_correction(message):
             return result
         except:
             pass
+
+
+def queen_array_clean(array):
+    for column in array:
+        for row in column:
+            index_of_column = array.index(column)
+            index_of_row = column.index(row)
+            if row == 1:
+                array[index_of_column][index_of_row] = "|"
