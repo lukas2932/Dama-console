@@ -1,9 +1,11 @@
 import random
 
+import datetime
 import board
 import constants
 import corrections_and_detections
 from languages import language
+from informations import measuring
 from constants import X_queens, O_queens
 
 first_player_total_pieces = 12
@@ -65,41 +67,47 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
 
             if first_player_total_pieces == 0 or second_player_total_pieces == 0:
                 if first_player_total_pieces == 0:
-                    print(texts["First_won"].format(first_player_name=first_player_name))
+                    print(texts["Second_won"].format(second_player_name=second_player_name))
+                    winner = second_player_name
+                    
                 else:
-                   print(texts["Second_won"].format(second_player_name=second_player_name))
+                    print(texts["First_won"].format(first_player_name=first_player_name))
+                    winner = first_player_name
                 is_finished = True
                 break
 
         if is_finished:
-            break
+            return winner
 
 
 def game(texts):
     is_playing = True
     board.create_helping_board()
-
+    
+    first_player_name = str(input(texts["First_player_name"])).strip()
+    second_player_name = str(input(texts["Second_player_name"])).strip()
+    score = {first_player_name: 0, second_player_name: 0}
     while is_playing:
         board.create_board()
         board.create_figures()
 
-        first_player_name = str(input(texts["First_player_name"])).strip()
-        second_player_name = str(input(texts["Second_player_name"])).strip()
-
         who_begins_num = random.randint(1, 2)
-
+        start_time = datetime.datetime.now()
         print(texts["First_player_piece"].format(first_player_name=first_player_name))
         print(texts["Second_player_piece"].format(second_player_name=second_player_name))
 
         if who_begins_num == 1:
-            gameplay_method(first_player_name, second_player_name, who_begins_num, texts)
+            winner = gameplay_method(first_player_name, second_player_name, who_begins_num, texts)
 
         elif who_begins_num == 2:
-            gameplay_method(first_player_name, second_player_name, who_begins_num, texts)
+            winner = gameplay_method(first_player_name, second_player_name, who_begins_num, texts)
 
         print(end="\n")
+        measuring(winner, start_time)
+        score[winner] += 1
+        print(texts["final_score"].format(first_player_name=first_player_name, second_player_name=second_player_name, first_player_score=score[first_player_name], second_player_score=score[second_player_name]))
         print(texts["again"])
-
+    
         while True:
             play_again = input(texts["answer"].format(yes=texts["yes"], no=texts["no"]))
             print()

@@ -60,7 +60,6 @@ def create_figures():
             reverse = False
         else:
             reverse = True
-
     return x_pieces_counter, o_pieces_counter
 
 

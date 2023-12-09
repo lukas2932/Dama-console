@@ -1,22 +1,22 @@
 """
-high level support for doing this and that.
+definovaní funkce
 """
 def language(choice):
     """
-high level support for doing this and that.
+ texts
     """
     texts = {
         "begins": {"en": "Player {starting_player} begins as first.", 
                    "cs": "Hráč {starting_player} začíná jako první."},
-        "obtained_queen": {"en": "Player {name} obtained queen.",
+        "obtained_queen": {"en": "Player {name} obtained Queen.",
                             "cs": "Hráč {name} získal Dámu."},
         "select": {"en": "Select a piece you want to move: ",
                     "cs": "Vyber figurku, s kterou chceš pohnout: "},
         "cant_be_moved": {"en": "There can not be done any moves to {moving_piece}",
                            "cs": "S figurkou {moving_piece} nelze pohnout"},
-        "possible_moves": {"en": "Possible moves in {moving_piece} are: {possible_moves}",
+        "possible_moves": {"en": "Possible moves for {moving_piece} are: {possible_moves}",
                            "cs": "Možné poyhyby pro {moving_piece} jsou: {possible_moves}"},
-        "can_capture": {"en": "You can capture {key} by: {value}",
+        "can_capture": {"en": "You can jump over {key} to: {value}",
                          "cs": "Můžeš přeskočit {key} na: {value}"},
         "move": {"en": "Move to: ",
                   "cs": "Pohnout na: "},
@@ -45,8 +45,10 @@ high level support for doing this and that.
         "Second_won": {"en": "{second_player_name} won.",
                         "cs": "{second_player_name} vyhrál."},
         "Playing": {"en": "{playing_player}{playing_player_pieces} is playing.",
-                     "cs": "{playing_player}{playing_player_pieces} právě hraje."}
+                     "cs": "{playing_player}{playing_player_pieces} právě hraje."},
+        "final_score": {"en": "Final score: {first_player_name}: {first_player_score} / {second_player_name}: {second_player_score}",
+                        "cs": "Celkové skóre: {first_player_name}: {first_player_score} / {second_player_name}: {second_player_score}"}
     }
 
-    return {text: texts[text][choice] for text in texts}
+    return {key: value[choice] for key, value in texts.items()}
     
