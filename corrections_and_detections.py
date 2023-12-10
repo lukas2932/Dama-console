@@ -1,5 +1,5 @@
 from colorama import Fore
-from constants import X_queens, O_queens, array_of_board, array_of_board_helping
+from arrays import X_queens, O_queens, array_of_board, array_of_board_helping
 
 
 def print_helping_nums(index_of_column, index_of_row, row, indicator):
@@ -119,3 +119,4 @@ def queen_array_clean(array):
             index_of_row = column.index(row)
             if row == 1:
                 array[index_of_column][index_of_row] = "|"
+

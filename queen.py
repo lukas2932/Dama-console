@@ -1,4 +1,4 @@
-from constants import X_queens, O_queens, array_of_board, array_of_board_helping
+from arrays import X_queens, O_queens, array_of_board, array_of_board_helping
 
 
 class Queen:

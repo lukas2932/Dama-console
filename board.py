@@ -1,7 +1,7 @@
 import queen
 import corrections_and_detections
 from colorama import Fore
-from constants import *
+from arrays import *
 
 
 def create_board():
@@ -37,6 +37,7 @@ def create_figures():
     placement_counter = 0
     x_pieces_counter = 0
     o_pieces_counter = 0
+    """
     reverse = False
     for column in range(3):
         for row in range(16):
@@ -59,7 +60,10 @@ def create_figures():
         if reverse:
             reverse = False
         else:
-            reverse = True
+            reverse = True"""
+
+    array_of_board[1][3] = "X"
+    array_of_board[2][5] = "O"
     return x_pieces_counter, o_pieces_counter
 
 
@@ -132,7 +136,7 @@ def print_helping_board():
 
 
 # Rozdeleni metody move_piece
-def move_piece(self, name, texts):
+def piece_interactions(self, name, texts):
     is_choosing = True
     while is_choosing:
         moving_piece = corrections_and_detections.input_correction(texts["select"])
@@ -180,8 +184,10 @@ def move_piece(self, name, texts):
                     queen_is_capturing = True
 
             else:
-                return_array = corrections_and_detections.available_moves_normal(column_index_of_moving_piece, row_index_of_moving_piece,
-                                                              column_possible_move, enemy_piece)
+                return_array = corrections_and_detections.available_moves_normal(
+                    column_index_of_moving_piece, row_index_of_moving_piece,
+                    column_possible_move, enemy_piece
+                )
                 if len(return_array) > 2:
                     possible_moves = return_array[0]
                     possible_capture_moves = return_array[1]
@@ -207,7 +213,7 @@ def move_piece(self, name, texts):
                         if queen_is_capturing:
                             print(texts["can_capture"].format(key=key, value=value))
                         else:
-                            print(texts["can_capture"].format(key=key,value=' '.join(map(str, value))))
+                            print(texts["can_capture"].format(key=key, value=' '.join(map(str, value))))
                 is_choosing_move = True
                 while is_choosing_move:
                     is_capturing = False

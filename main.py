@@ -2,11 +2,10 @@ import random
 
 import datetime
 import board
-import constants
 import corrections_and_detections
 from languages import language
 from informations import measuring
-from constants import X_queens, O_queens
+from arrays import X_queens, O_queens
 
 first_player_total_pieces = 12
 second_player_total_pieces = 12
@@ -59,7 +58,7 @@ def gameplay_method(first_player_name, second_player_name, first_play, texts):
             print(end="\n")
             board.print_board()
             board.print_helping_board()
-            board.move_piece(playing_variable, playing_player, texts)
+            board.piece_interactions(playing_variable, playing_player, texts)
 
             all_pieces = corrections_and_detections.players_pieces_check()
             first_player_total_pieces = all_pieces[0]
