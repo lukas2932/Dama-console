@@ -37,7 +37,6 @@ def create_figures():
     placement_counter = 0
     x_pieces_counter = 0
     o_pieces_counter = 0
-    """
     reverse = False
     for column in range(3):
         for row in range(16):
@@ -60,10 +59,7 @@ def create_figures():
         if reverse:
             reverse = False
         else:
-            reverse = True"""
-
-    array_of_board[1][3] = "X"
-    array_of_board[2][5] = "O"
+            reverse = True
     return x_pieces_counter, o_pieces_counter
 
 
