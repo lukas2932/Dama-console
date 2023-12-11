@@ -46,8 +46,10 @@ def language(choice):
                         "cs": "{second_player_name} vyhrál."},
         "Playing": {"en": "{playing_player}{playing_player_pieces} is playing.",
                      "cs": "{playing_player}{playing_player_pieces} právě hraje."},
-        "final_score": {"en": "Final score: {first_player_name}: {first_player_score} / {second_player_name}: {second_player_score}",
-                        "cs": "Celkové skóre: {first_player_name}: {first_player_score} / {second_player_name}: {second_player_score}"}
+        "final_score": {"en": "Final score: {first_player_name}: {first_player_score} / "
+                              "{second_player_name}: {second_player_score}",
+                        "cs": "Celkové skóre: {first_player_name}: {first_player_score} / "
+                              "{second_player_name}: {second_player_score}"}
     }
 
     return {key: value[choice] for key, value in texts.items()}
