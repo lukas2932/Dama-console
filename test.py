@@ -48,23 +48,6 @@ def test_create_figures_and_players_pieces_check():
     assert final_result_1, final_result_2
 
 
-def test_print_helping_board_and_print_board():
-    board.create_board()
-    board.create_figures()
-
-    final_board_array = board.print_board()
-    result_board_1 = final_board_array[0]
-    result_board_2 = final_board_array[1]
-
-    final_helping_array = board.print_helping_board()
-    result_helping_1 = final_helping_array[0]
-    result_helping_2 = final_helping_array[1]
-
-    final_result_1 = result_board_1 == result_helping_1
-    final_result_2 = result_board_2 == result_helping_2
-    assert final_result_1, final_result_2
-
-
 @pytest.mark.parametrize('user_input, expected', [
     ("ahoj", False),
     (22, True)

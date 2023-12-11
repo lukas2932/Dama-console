@@ -67,18 +67,18 @@ def print_board():
     x_pieces_counter = 0
     o_pieces_counter = 0
     for column in array_of_board:
+        index_of_column = array_of_board.index(column)
+        counter_of_row = 0
         for row in column:
-            index_of_column = array_of_board.index(column)
-            index_of_row = column.index(row)
             if row == "X":
-                if X_queens[index_of_column][index_of_row] == 1:
+                if X_queens[index_of_column][counter_of_row] == 1:
                     print(Fore.MAGENTA + row + Fore.RESET, end=" ")
                     x_pieces_counter += 1
                 else:
                     print(Fore.RED + row + Fore.RESET, end=" ")
                     x_pieces_counter += 1
             elif row == "O":
-                if O_queens[index_of_column][index_of_row] == 1:
+                if O_queens[index_of_column][counter_of_row] == 1:
                     print(Fore.BLUE + row + Fore.RESET, end=" ")
                     o_pieces_counter += 1
                 else:
@@ -86,10 +86,9 @@ def print_board():
                     o_pieces_counter += 1
             else:
                 print(row, end=" ")
+            counter_of_row += 1
         print("\n", end="")
     print(end="\n")
-
-    return x_pieces_counter, o_pieces_counter
 
 
 def print_helping_board():
@@ -249,4 +248,6 @@ def piece_interactions(self, name, texts):
                                         array_of_X_pieces.clear()
                                         queen.Queen(final_column, final_row, texts).has_queen(self, name)
                                         is_choosing_move = False
+                                        print(f"X: {X_queens}")
+                                        print(f"O: {O_queens}")
                                         is_choosing = False
