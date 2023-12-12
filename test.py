@@ -25,16 +25,6 @@ def test_create_figures():
 
 def test_players_pieces_check():
     board.create_board()
-    final_array = corrections_and_detections.players_pieces_check()
-    result_1 = final_array[0]
-    result_2 = final_array[1]
-
-    final_result = result_1 == result_2
-    assert final_result
-
-
-def test_create_figures_and_players_pieces_check():
-    board.create_board()
     final_figure_array = board.create_figures()
     result_figure_1 = final_figure_array[0]
     result_figure_2 = final_figure_array[1]
