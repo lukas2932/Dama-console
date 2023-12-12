@@ -1,6 +1,7 @@
 import pytest
 
 import board
+import languages
 import corrections_and_detections
 
 
@@ -51,3 +52,14 @@ def test_input_correction(user_input, expected):
         pass
 
     assert final_result == expected
+
+
+@pytest.mark.parametrize('expected_language, user_input, expected', [
+    ("en", "begins", "Player {starting_player} begins as first."),
+    ("cs", "cant_be_moved", "S figurkou {moving_piece} nelze pohnout"),
+    ("en", "again", "Do you want to play again? "),
+    ("cs", "Playing", "{playing_player}{playing_player_pieces} právě hraje."),
+])
+def test_language(expected_language, user_input, expected):
+    result = languages.language(expected_language)[user_input]
+    assert result == expected
